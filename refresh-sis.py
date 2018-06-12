@@ -7,15 +7,19 @@ import os
 import time
 
 load_dotenv()
+print('Loaded dotenv')
 
 chrome_options = Options()
 chrome_options.add_argument("--headless")
 chrome_options.add_argument("--window-size=1920x1080")
+chrome_options.add_argument("--disable-dev-shm-usage")
 driver = webdriver.Chrome(chrome_options=chrome_options)
+print('Driver started')
 driver.get("https://ps-sis-sa90.vccs.edu/psp/ps/EMPLOYEE/HRMS/c/SA_LEARNER_SERVICES.SSR_SSENRL_CART.GBL?PORTALPARAM_PTCNAV=HC_SSR_SSENRL_CART_GBL&EOPP.SCNode=HRMS&EOPP.SCPortal=EMPLOYEE&EOPP.SCName=CO_EMPLOYEE_SELF_SERVICE&EOPP.SCLabel=Enrollment&EOPP.SCFName=HCCC_ENROLLMENT&EOPP.SCSecondary=true&EOPP.SCPTfname=HCCC_ENROLLMENT&FolderPath=PORTAL_ROOT_OBJECT.CO_EMPLOYEE_SELF_SERVICE.HCCC_ENROLLMENT.HC_SSR_SSENRL_CART_GBL&IsFolder=false")
 driver.implicitly_wait(10)
 
 # Log in
+print('Logging in...')
 user_field = driver.find_element_by_name("username1")
 password_field = driver.find_element_by_name("password")
 submit_button = driver.find_element_by_id("submitButton")
