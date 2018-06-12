@@ -54,9 +54,9 @@ while course_closed is True:
     # Check status
     status_icon = driver.find_element_by_xpath('//*[@id="win0divDERIVED_REGFRM1_SSR_STATUS_LONG$0"]/div/img')
     status = status_icon.get_attribute('alt')
+
     if status != 'Closed':
         print("\n\n!!!!!!!The course is open!!!!!!!")
-        driver.close()
 
         # Send Twilio text
         account_sid = os.getenv("TWILIO_ACCOUNT_SID")
@@ -67,7 +67,16 @@ while course_closed is True:
             from_="+18045543991",
             body="CSC 202 is open!")
 
+        # Attempt to enroll
+        proceed_button = driver.find_element_by_name("DERIVED_REGFRM1_LINK_ADD_ENRL$82$")
+        proceed_button.click()
+        driver.switch_to_default_content()
+        driver.switch_to_frame("TargetContent")
+        finish_enrolling_button = driver.find_element_by_name("DERIVED_REGFRM1_SSR_PB_SUBMIT")
+        finish_enrolling_button.click()
+
         course_closed = False
+        driver.close()
     else:
         print('The course was closed')
         time.sleep(60)
