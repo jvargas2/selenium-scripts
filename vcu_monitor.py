@@ -89,14 +89,14 @@ while notification_sent is False:
             body_text = course + ' is open!'
             client = Client(account_sid, auth_token)
             message = client.messages.create(
-                to='+17037273862', 
+                to='+17037256302', 
                 from_='+15402534519',
                 body=body_text)
             notification_sent = True
     
     if notification_sent is False:
         # Wait one minute before trying again
-        time.sleep(5)
+        time.sleep(60)
         print('Reloading page...')
         driver.refresh()
 
